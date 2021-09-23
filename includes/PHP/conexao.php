@@ -1,0 +1,1 @@
+<?php $instalado = false; ?>
