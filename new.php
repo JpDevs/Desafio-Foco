@@ -39,9 +39,12 @@ foreach($xml->Bookings as $reserva) {
     $fonte_reserva = $reserva->Booking['source'];
     $reserva_chegada = $reserva->Booking->RoomStay->StayDate['arrival'];
     $reserva_saida = $reserva->Booking->RoomStay->StayDate['departure'];
-    $reserva_adultos = $reserva->GuestCount['adultos'];
-    $reserva_criancas = $reserva->GuestCount['child'];
-
+    $reserva_adultos = $reserva->Booking->RoomStay->GuestCount['adult'];
+    $reserva_criancas = $reserva->Booking->RoomStay->GuestCount['child'];
+    //-
+    $cliente_fullname = $reserva->Booking->PrimaryGuest->Name['givenName'] . ' ' . $reserva->Booking->PrimaryGuest->Name['surname'];
+    $cliente_telefone = $reserva->Booking->PrimaryGuest->Phone['countryCode'] . $reserva->Booking->PrimaryGuest->Phone['cityAreaCode'] . $reserva->Booking->PrimaryGuest->Phone['number'];
+    $cliente_email = $reserva->Booking->PrimaryGuest->Email;
     //-
     if($reserva->Booking['status'] == 'pending') {
         $reserva_status = 'pendente';
@@ -55,7 +58,7 @@ foreach($xml->Bookings as $reserva) {
         $reserva_status = 'pendente';
     }
 
-    echo $reserva_chegada;
+    echo $cliente_email;
 
     
     //$mysqli->query("INSERT INTO") or die ($mysqli->error); // 
