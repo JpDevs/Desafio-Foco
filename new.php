@@ -36,11 +36,12 @@ foreach($xml->Bookings as $reserva) {
     $id_reserva = $reserva->Booking['id']; 
     $tipo_request = $reserva->Booking['type'];
     $reserva_criacao = $reserva->Booking['createDateTime'];
-    $fonte_reserva = $reserva->Booking['source'];
+    $reserva_fonte = $reserva->Booking['source'];
     $reserva_chegada = $reserva->Booking->RoomStay->StayDate['arrival'];
     $reserva_saida = $reserva->Booking->RoomStay->StayDate['departure'];
     $reserva_adultos = $reserva->Booking->RoomStay->GuestCount['adult'];
     $reserva_criancas = $reserva->Booking->RoomStay->GuestCount['child'];
+    $reserva_quarto = $reserva->Booking->RoomStay['roomTypeID'];
     //-
     $cliente_fullname = $reserva->Booking->PrimaryGuest->Name['givenName'] . ' ' . $reserva->Booking->PrimaryGuest->Name['surname'];
     $cliente_telefone = $reserva->Booking->PrimaryGuest->Phone['countryCode'] . $reserva->Booking->PrimaryGuest->Phone['cityAreaCode'] . $reserva->Booking->PrimaryGuest->Phone['number'];
@@ -69,10 +70,17 @@ foreach($xml->Bookings as $reserva) {
         $reserva_status = 'pendente';
     }
 
-    //echo $cliente_cartao_pais;
+    //echo $reserva_quarto;
 
-    
-    //$mysqli->query("INSERT INTO") or die ($mysqli->error); // 
+    $qryquarto = $mysqli->query("SELECT `quarto_nome` FROM `tipos_quartos` WHERE id = $reserva_quarto") or die ($mysqli->error);
+    if($qryquarto->num_rows <=0 ) {
+        $tipo_quarto = $reserva_quarto; 
+    } else {
+        $tipo_quarto = $qryquarto->fetch_assoc()['quarto_nome'];
+    }
+
+    $mysqli->query("INSERT INTO `reservas` (`reserva_id`, `reserva_cliente`, `reserva_tipo_quarto`, `reserva_criacao`, `reserva_fonte`, `adultos`, `kids`, `chegada`, `saida`, `status`) VALUES ('$id_reserva', '$cliente_fullname', '$tipo_quarto', '$reserva_criacao', '$reserva_fonte', '$reserva_adultos', '$reserva_criancas', '$reserva_chegada', '$reserva_saida', '$reserva_status')") or die ($mysqli->error); // 
+    $mysqli->query("INSERT INTO `cliente_cartao` (`cartao_id`, `cartao_cliente`, `cartao_titular`, `cartao_bandeira`, `cartao_numero`, `cartao_validade`, `cartao_cvv`, `cartao_endereco`) VALUES (NULL, '$cliente_fullname', '$cliente_cartao_titular', '$cliente_cartao_bandeira', '$cliente_cartao_numero', '$cliente_cartao_validade', '$cliente_cartao_cvv', '$cliente_cartao_endereco')") or die ($mysqli->error);
 }
 
 ?>
