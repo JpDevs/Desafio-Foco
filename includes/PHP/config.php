@@ -1,9 +1,7 @@
 <?php
-error_reporting(0);
 if(!isset($_SESSION)) {
     session_start();
 }
-
 require('conexao.php');
 $mysqli = new mysqli($host,$user,$pass,$bd);
 //-
@@ -15,9 +13,15 @@ if($mysqli->connect_errno) {
 } else {
     if(isset($_SESSION['errobd'])) {
         unset($_SESSION['errobd']);
+        $mysqli->set_charset('utf-8');
     }
 
     $instalador = 0;
 }
+
+//Usar cURL ou file_Get_contents
+$opcao = 'fileget'; //'curl';
+//Define se o XML é interno ou externo ()
+$sxml = 'interno'; //'interno';
 
 ?>

@@ -1,1 +1,7 @@
-<?php $instalado = false; ?>
+<?php
+    $host = 'localhost';
+    $bd = 'foco';
+    $user = 'root';
+    $pass = '';
+    $instalado = 'true';
+    ?>

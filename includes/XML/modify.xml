@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BookingRetrievalRS xmlns="http://www.expediaconnect.com/EQC/BR/2014/01">
+    <Bookings>
+        <Booking id="1830752105" type="modify" createDateTime="2021-09-16T17:17:00Z" source="Hotels.com" status="pending">
+            <Hotel id="20045259"/>
+            <RoomStay roomTypeID="202207306" >
+                <StayDate arrival="2021-09-16" departure="2021-09-17"/>
+                <GuestCount adult="2" child="0"/>
+                <PerDayRates currency="BRL">
+                    <PerDayRate stayDate="2021-09-16" baseRate="211.06" promoName="Members Only deal"/>
+                </PerDayRates>
+                <Total amountAfterTaxes="221.61" amountOfTaxes="10.55" currency="BRL"/>
+                <PaymentCard cardCode="MC" cardNumber="123456789987" seriesCode="123" expireDate="0924">
+                    <CardHolder name="Expedia VirtualCard" address="1111 Expedia Group Way W" city="Seattle" stateProv="WA" country="US" postalCode="98119"/>
+                </PaymentCard>
+            </RoomStay>
+            <PrimaryGuest>
+                <Name givenName="João" surname="Pedro"/>
+                <Phone countryCode="0" cityAreaCode="0" number="6191521720"/>
+                <Email>jp@m.expediapartnercentral.com</Email>
+            </PrimaryGuest>
+            <SpecialRequest code="1.41">2 Large Twin Beds</SpecialRequest>
+            <SpecialRequest code="2.1">Non-Smoking</SpecialRequest>
+            <SpecialRequest code="5">Expedia Virtual Card will be activated from the day of Check-in.</SpecialRequest>
+        </Booking>
+    </Bookings>
+</BookingRetrievalRS>
+

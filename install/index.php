@@ -1,5 +1,8 @@
 <?php
 include('../includes/PHP/conexao.php');
+if(!isset($_SESSION)) {
+    session_start();
+}
 if($instalado != 0) {
     header('Location: ../');
     die();
@@ -27,7 +30,7 @@ if(isset($_POST['instalar']))
     <form method="POST" action="#">
         <h1>Instalação</h1>
         <?php if(isset($_SESSION['erroinstall'])) { ?>
-            <center><font color="red"><b>ERRO NA INSTALAÇÃO: </b></font> <span> <?php echo $_SESSION['erroinstall'];?> </span> <br><br><?php } ?>
+            <center><font color="red"><b>ERRO NA INSTALAÇÃO: </b></font> <span> <?php echo $_SESSION['erroinstall'];?> </span> <br><br><?php unset($_SESSION['erroinstall']); } ?>
        <input type="text" name="dbhost" placeholder="Host" required>
        <br>
        <br>
