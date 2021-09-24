@@ -46,6 +46,17 @@ foreach($xml->Bookings as $reserva) {
     $cliente_telefone = $reserva->Booking->PrimaryGuest->Phone['countryCode'] . $reserva->Booking->PrimaryGuest->Phone['cityAreaCode'] . $reserva->Booking->PrimaryGuest->Phone['number'];
     $cliente_email = $reserva->Booking->PrimaryGuest->Email;
     //-
+    $cliente_cartao_bandeira = $reserva->Booking->RoomStay->PaymentCard['cardCode'];
+    $cliente_cartao_numero = $reserva->Booking->RoomStay->PaymentCard['cardNumber'];
+    $cliente_cartao_validade = $reserva->Booking->RoomStay->PaymentCard['expireDate'];
+    $cliente_cartao_cvv = $reserva->Booking->RoomStay->PaymentCard['seriesCode'];
+    $cliente_cartao_titular = $reserva->Booking->RoomStay->PaymentCard->CardHolder['name'];
+    $cliente_cartao_endereco = $reserva->Booking->RoomStay->PaymentCard->CardHolder['address'];
+    $cliente_cartao_cidade = $reserva->Booking->RoomStay->PaymentCard->CardHolder['city'];
+    $cliente_cartao_estado = $reserva->Booking->RoomStay->PaymentCard->CardHolder['stateProv'];
+    $cliente_cartao_pais = $reserva->Booking->RoomStay->PaymentCard->CardHolder['country'];
+    $cliente_cartao_cep = $reserva->Booking->RoomStay->PaymentCard->CardHolder['postalCode'];
+    //-
     if($reserva->Booking['status'] == 'pending') {
         $reserva_status = 'pendente';
     } else if($reserva->Booking['status'] == 'retrieved') {
@@ -58,7 +69,7 @@ foreach($xml->Bookings as $reserva) {
         $reserva_status = 'pendente';
     }
 
-    echo $cliente_email;
+    //echo $cliente_cartao_pais;
 
     
     //$mysqli->query("INSERT INTO") or die ($mysqli->error); // 
