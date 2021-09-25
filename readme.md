@@ -39,7 +39,4 @@ Quando entrar no instalador, basta preencher as informações do seu banco de da
 ![print2](https://image.prntscr.com/image/4aQHAKb-TIGXX88PjCZFmQ.png "print")
 ###### 
 Após isso, sua aplicação estará funcionando normalmente.
-###### 
-
-##### Nota:
-Não foi feito nenhum front-end para essa aplicação, porque o foco foi 100% no funcionamento do back-end, executando a ação imposta no desafio. Espero que gostem.
+#######
