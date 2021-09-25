@@ -16,7 +16,7 @@ if(isset($_POST['instalar']))
     '.'$pass = '."'".$_POST['dbpass']."'".';
     '.'$instalado = '."'".'true'."'".';
     '."?>";
-    $instala=fopen('../includes/php/conexao.php' , 'w');
+    $instala=fopen('../includes/PHP/conexao.php' , 'w');
     fwrite($instala,$instalador);
     fclose($instala);
     if(isset($_SESSION['primeirainstall'])) { 
@@ -30,7 +30,7 @@ if(isset($_POST['instalar']))
     
     <meta charset="utf-8">
     <center>
-    <form method="POST" action="#">
+    <form method="POST" action="">
         <h1>Instalação</h1>
         <?php if(isset($_SESSION['erroinstall']) && !isset($_SESSION['primeirainstall'])) { ?>
             <center><font color="red"><b>ERRO NA INSTALAÇÃO: </b></font> <span> <?php echo $_SESSION['erroinstall'];?> </span> <br><br><?php unset($_SESSION['erroinstall']); } ?>

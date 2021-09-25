@@ -17,7 +17,7 @@ if($mysqli->connect_errno) {
     fclose($instala);
     header('Location: index.php');
 } else {
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
 
 ?>
