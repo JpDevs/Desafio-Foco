@@ -18,6 +18,8 @@ $queryreservas = $mysqli->query("SELECT * FROM `reservas`") or die ($mysqli->err
     <body>
         <center><h3>Reservas</h3>
         <?php if(isset($_SESSION['zerado'])) { echo 'Reservas zeradas com sucesso!' . '<br><br>'; unset($_SESSION['zerado']);} ?>
+        <?php if(isset($_SESSION['edit'])) { echo 'Reserva editada com sucesso!' . '<br><br>'; unset($_SESSION['edit']);} ?>
+        <?php if(isset($_SESSION['deletada'])) { echo 'Reserva deletada com sucesso!' . '<br><br>'; unset($_SESSION['deletada']);} ?>
         <button><a style="color: inherit; text-decoration: none;" href="nova_reserva.php">Nova Reserva</a></button>
         <br>
         <br>

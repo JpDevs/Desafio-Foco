@@ -4,6 +4,9 @@ if(!isset($_SESSION)) {
     session_start();
 }
 include('../includes/PHP/conexao.php');
+if(!isset($instalado)) {
+    $_SESSION['primeirainstall'] = true;
+}
 $mysqli = new mysqli($host,$user,$pass,$bd);
 
 if($mysqli->connect_errno) {

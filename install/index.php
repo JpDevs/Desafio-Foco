@@ -19,6 +19,9 @@ if(isset($_POST['instalar']))
     $instala=fopen('../includes/php/conexao.php' , 'w');
     fwrite($instala,$instalador);
     fclose($instala);
+    if(isset($_SESSION['primeirainstall'])) { 
+        unset($_SESSION['primeirainstall']);
+    }
     header('location: ./verifica.php');
 }
 ?>
@@ -29,7 +32,7 @@ if(isset($_POST['instalar']))
     <center>
     <form method="POST" action="#">
         <h1>Instalação</h1>
-        <?php if(isset($_SESSION['erroinstall'])) { ?>
+        <?php if(isset($_SESSION['erroinstall']) && !isset($_SESSION['primeirainstall'])) { ?>
             <center><font color="red"><b>ERRO NA INSTALAÇÃO: </b></font> <span> <?php echo $_SESSION['erroinstall'];?> </span> <br><br><?php unset($_SESSION['erroinstall']); } ?>
        <input type="text" name="dbhost" placeholder="Host" required>
        <br>
