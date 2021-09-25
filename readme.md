@@ -3,7 +3,7 @@
 ------------
 
 
-O desafio se consiste em criar uma aplicação que através do PHP execute a leitura de uma reserva em .xml vinda do expedia, e logo após persistir esses dados na DB mysql
+O desafio se consiste em criar uma aplicação que através do PHP execute a leitura de uma reserva em .xml vinda do expedia, e logo após persista esses dados na DB mysql
 #### Funcionamento da aplicação
 
 ------------
