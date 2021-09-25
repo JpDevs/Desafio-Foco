@@ -25,7 +25,8 @@ $xml = simplexml_load_string($url); //Carrega o XML
 
 }
 else if ($sxml == 'interno') {
-    $caminhoxml = './includes/XML/new.xml'; //Colocar caminho do xml
+    if(isset($_POST['novoxml'])) {
+    $caminhoxml = $_FILES['reservaxml']['tmp_name'];
     $xml = simplexml_load_file($caminhoxml); //Carrega o XML
 } else {
     die('Erro: XML não reconhecido.');
@@ -72,7 +73,7 @@ foreach($xml->Bookings as $reserva) {
 
     //echo $reserva_quarto;
 
-    $qryquarto = $mysqli->query("SELECT `quarto_nome` FROM `tipos_quartos` WHERE id = $reserva_quarto") or die ($mysqli->error);
+    $qryquarto = $mysqli->query("SELECT `quarto_nome` FROM `suites` WHERE id = $reserva_quarto") or die ($mysqli->error);
     if($qryquarto->num_rows <=0 ) {
         $tipo_quarto = $reserva_quarto; 
     } else {
@@ -81,6 +82,8 @@ foreach($xml->Bookings as $reserva) {
 
     $mysqli->query("INSERT INTO `reservas` (`reserva_id`, `reserva_cliente`, `reserva_tipo_quarto`, `reserva_criacao`, `reserva_fonte`, `adultos`, `kids`, `chegada`, `saida`, `status`) VALUES ('$id_reserva', '$cliente_fullname', '$tipo_quarto', '$reserva_criacao', '$reserva_fonte', '$reserva_adultos', '$reserva_criancas', '$reserva_chegada', '$reserva_saida', '$reserva_status')") or die ($mysqli->error); // 
     $mysqli->query("INSERT INTO `cliente_cartao` (`cartao_id`, `cartao_cliente`, `cartao_titular`, `cartao_bandeira`, `cartao_numero`, `cartao_validade`, `cartao_cvv`, `cartao_endereco`) VALUES (NULL, '$cliente_fullname', '$cliente_cartao_titular', '$cliente_cartao_bandeira', '$cliente_cartao_numero', '$cliente_cartao_validade', '$cliente_cartao_cvv', '$cliente_cartao_endereco')") or die ($mysqli->error);
+    $_SESSION['upload'] = true;
+    header('Location:' . $_SERVER['HTTP_REFERER']);
 }
-
+}
 ?>
