@@ -28,7 +28,7 @@ Na aba de edição da reserva, o operador poderá optar por editar os dados manu
 
 # Instalação
 
-Para rodar a aplicação, primeiro crie um banco de dados e faça o upload do arquivo .sql localizado nos arquivos da aplicação.
+Para rodar a aplicação, primeiro crie um banco de dados e faça o upload do arquivo .sql localizado nos arquivos da aplicação (localizado na pasta install).
 
 Logo após, acesse o index.php da sua aplicação e clique em prosseguir para instalador.
 ###### 
