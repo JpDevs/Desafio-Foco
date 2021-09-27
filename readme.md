@@ -3,7 +3,7 @@
 ------------
 
 
-O desafio se consiste em criar uma aplicação que através do PHP execute a leitura de uma reserva em .xml vinda do expedia, e logo após persistir esses dados na DB mysql
+O desafio se consiste em criar uma aplicação que através do PHP execute a leitura de uma reserva em .xml vinda do expedia, e logo após persista esses dados na DB mysql
 #### Funcionamento da aplicação
 
 ------------
@@ -28,7 +28,7 @@ Na aba de edição da reserva, o operador poderá optar por editar os dados manu
 
 # Instalação
 
-Para rodar a aplicação, primeiro crie um banco de dados e faça o upload do arquivo .sql localizado nos arquivos da aplicação.
+Para rodar a aplicação, primeiro crie um banco de dados e faça o upload do arquivo .sql localizado nos arquivos da aplicação (localizado na pasta install).
 
 Logo após, acesse o index.php da sua aplicação e clique em prosseguir para instalador.
 ###### 
@@ -39,7 +39,4 @@ Quando entrar no instalador, basta preencher as informações do seu banco de da
 ![print2](https://image.prntscr.com/image/4aQHAKb-TIGXX88PjCZFmQ.png "print")
 ###### 
 Após isso, sua aplicação estará funcionando normalmente.
-###### 
-
-##### Nota:
-Não foi feito nenhum front-end para essa aplicação, porque o foco foi 100% no funcionamento do back-end, executando a ação imposta no desafio. Espero que gostem.
+#######

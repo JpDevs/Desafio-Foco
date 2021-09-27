@@ -16,6 +16,10 @@ $queryreservas = $mysqli->query("SELECT * FROM `reservas`") or die ($mysqli->err
                 <span>Reserva adicionada com sucesso!</span>
                 <br><br>
             <?php unset($_SESSION['upload']); } ?>
+            <?php if(isset($_SESSION['erro'])) { ?>
+                <font color="red"><b>ERRO: </b></font><span><?php echo $_SESSION['erro']; ?></span>
+                <br><br>
+            <?php unset($_SESSION['erro']); } ?>
         <form action="new.php" method="post" enctype="multipart/form-data">
      <label>Selecione o arquivo XML: </label><br><input type="file" name="reservaxml" required>
       <br>

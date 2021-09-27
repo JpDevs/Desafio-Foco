@@ -58,7 +58,13 @@ foreach($xml->Bookings as $reserva) {
     $cliente_cartao_estado = $reserva->Booking->RoomStay->PaymentCard->CardHolder['stateProv'];
     $cliente_cartao_pais = $reserva->Booking->RoomStay->PaymentCard->CardHolder['country'];
     $cliente_cartao_cep = $reserva->Booking->RoomStay->PaymentCard->CardHolder['postalCode'];
-    //-
+    //die($reserva->Booking['type']);    //-
+    $qryreserva = $mysqli->query("SELECT `reserva_id` FROM `reservas` WHERE reserva_id = $id_reserva");
+    if($qryreserva->num_rows >=1) {
+        $_SESSION['erro'] = "Não foi possível criar uma nova reserva. Motivo: ID da reserva já existente no banco de dados";
+        header('Location:' . $_SERVER['HTTP_REFERER']);
+        die('Não foi possível criar uma nova reserva. Motivo: ID da reserva já existente no banco de dados');
+    }
     if($reserva->Booking['status'] == 'pending') {
         $reserva_status = 'pendente';
     } else if($reserva->Booking['status'] == 'retrieved') {
@@ -67,13 +73,19 @@ foreach($xml->Bookings as $reserva) {
         $reserva_status = 'confirmada';
     } else if ($reserva->Booking['status'] == 'expired') {
         $reserva_status = 'cancelada';
-    } else {
+    }
+     else {
         $reserva_status = 'pendente';
+    }
+
+    if($tipo_request == 'cancel') {
+        $reserva_status = 'cancelada';
     }
 
     //echo $reserva_quarto;
 
     $qryquarto = $mysqli->query("SELECT `quarto_nome` FROM `suites` WHERE id = $reserva_quarto") or die ($mysqli->error);
+    
     if($qryquarto->num_rows <=0 ) {
         $tipo_quarto = $reserva_quarto; 
     } else {
@@ -84,6 +96,7 @@ foreach($xml->Bookings as $reserva) {
     $mysqli->query("INSERT INTO `cliente_cartao` (`cartao_id`, `cartao_cliente`, `cartao_titular`, `cartao_bandeira`, `cartao_numero`, `cartao_validade`, `cartao_cvv`, `cartao_endereco`) VALUES (NULL, '$cliente_fullname', '$cliente_cartao_titular', '$cliente_cartao_bandeira', '$cliente_cartao_numero', '$cliente_cartao_validade', '$cliente_cartao_cvv', '$cliente_cartao_endereco')") or die ($mysqli->error);
     $_SESSION['upload'] = true;
     header('Location:' . $_SERVER['HTTP_REFERER']);
+    die();
 }
 }
 ?>

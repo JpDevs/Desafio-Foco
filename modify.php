@@ -60,6 +60,7 @@ foreach($xml->Bookings as $reserva) {
     $cliente_cartao_pais = $reserva->Booking->RoomStay->PaymentCard->CardHolder['country'];
     $cliente_cartao_cep = $reserva->Booking->RoomStay->PaymentCard->CardHolder['postalCode'];
     //-
+    
     if($reserva->Booking['status'] == 'pending') {
         $reserva_status = 'pendente';
     } else if($reserva->Booking['status'] == 'retrieved') {
@@ -68,22 +69,39 @@ foreach($xml->Bookings as $reserva) {
         $reserva_status = 'confirmada';
     } else if ($reserva->Booking['status'] == 'expired') {
         $reserva_status = 'cancelada';
-    } else {
+    }
+    
+    else {
         $reserva_status = 'pendente';
     }
 
-    //echo $reserva_quarto;
+    if($tipo_request == 'cancel') {
+        $reserva_status = 'cancelada';
+    }
 
+    //echo $reserva_quarto;
+    
+    //-
     $qryquarto = $mysqli->query("SELECT `quarto_nome` FROM `suites` WHERE id = $reserva_quarto") or die ($mysqli->error);
     if($qryquarto->num_rows <=0 ) {
         $tipo_quarto = $reserva_quarto; 
     } else {
         $tipo_quarto = $qryquarto->fetch_assoc()['quarto_nome'];
     }
-
+    /*
     $mysqli->query("UPDATE `reservas` SET `reserva_id` = '$id_reserva', `reserva_cliente` = '$cliente_fullname', `reserva_tipo_quarto` = '$tipo_quarto', `adultos` = '$reserva_adultos', `kids` = '$reserva_criancas', `status` = '$reserva_status', `chegada` = '$reserva_chegada', `saida` = '$reserva_saida', `reserva_criacao` = '$reserva_criacao' WHERE `reservas`.`id` = $rid") or die ($mysqli->error); // 
-    $_SESSION['upeditado'] = true;
-    header('Location:' . $_SERVER['HTTP_REFERER']);
+    */
+    $qryreserva = $mysqli->query("SELECT `reserva_id` FROM `reservas` WHERE reserva_id $id_reserva");
+    if($qryreserva->num_rows <=1) {
+       $mysqli->query("UPDATE `reservas` SET `reserva_cliente` = '$cliente_fullname', `reserva_tipo_quarto` = '$tipo_quarto', `adultos` = '$reserva_adultos', `kids` = '$reserva_criancas', `status` = '$reserva_status', `chegada` = '$reserva_chegada', `saida` = '$reserva_saida', `reserva_criacao` = '$reserva_criacao' WHERE `reservas`.`id` = $rid") or die ($mysqli->error);
+       $_SESSION['upeditado'] = true;
+       header('Location:' . $_SERVER['HTTP_REFERER']);
+       die();
+    } else {
+        $_SESSION['erro'] = 'ID inexsistente!';
+        header('Location:' . $_SERVER['HTTP_REFERER']);
+        die();
+    }
 }
 }
 ?>

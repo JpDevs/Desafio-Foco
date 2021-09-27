@@ -12,7 +12,7 @@ if(isset($_POST['btneditar'])) {
     $adultos = addslashes(filter_input(INPUT_POST,'adultos'));
     $status = addslashes(filter_input(INPUT_POST,'status'));
     $suite = addslashes(filter_input(INPUT_POST,'suite'));
-    $mysqli->query("UPDATE `reservas` SET `reserva_id` = '$reserva_id', `reserva_cliente` = '$cliente_nome', `reserva_tipo_quarto` = '$suite', `adultos` = '$adultos', `kids` = '$criancas', `status` = '$status' WHERE `reservas`.`id` = $id") or die ($mysqli->error);
+    $mysqli->query("UPDATE `reservas` SET `reserva_cliente` = '$cliente_nome', `reserva_tipo_quarto` = '$suite', `adultos` = '$adultos', `kids` = '$criancas', `status` = '$status' WHERE `reservas`.`id` = $id") or die ($mysqli->error);
     $_SESSION['edit'] = true;
     header('Location: index.php');
     }
@@ -32,13 +32,17 @@ if(isset($_GET['editarxml']) && $_GET['editarxml'] == 'true') {
                 <span>Reserva editada com sucesso!</span>
                 <br><br>
             <?php unset($_SESSION['upeditado']); } ?>
+            <?php if(isset($_SESSION['erro'])) { ?>
+                <font color="red"><b>Erro: </b></font><span><?php echo $_SESSION['erro']; ?></span>
+                <br><br>
+            <?php unset($_SESSION['erro']); } ?>
         <form action="modify.php" method="post" enctype="multipart/form-data">
      <label>Selecione o arquivo XML: </label><br><input type="file" name="reservaxml" required>
      <input type="hidden" value="<?php echo $id;?>" name="id">
       <br>
       <br>
       <button type="submit" name="editxml">Upload</button></form><br>
-      <button><a style="color: inherit; text-decoration: none;" href="editar.php?id=<?php echo $id; ?>">Voltar</a></button>
+      <button><a style="color: inherit; text-decoration: none;" href="index.php?id=<?php echo $id; ?>">Voltar</a></button>
         </center>
         <br>
         
@@ -60,7 +64,7 @@ if(isset($_GET['editarxml']) && $_GET['editarxml'] == 'true') {
     <?php if(isset($_SESSION['editado'])) {?>
         <span>Reserva editada com sucesso!</span> <br><br><?php unset($_SESSION['editado']); } ?>
     <form method="post" action="">
-        <label>Id da reserva:</label><input type="text" name="reserva_id" value="<?php echo $reserva['reserva_id']; ?>"></input><br><br>
+        <label>Id da reserva:</label><input type="text" readonly="" name="reserva_id" value="<?php echo $reserva['reserva_id']; ?>"></input><br><br>
         <label>Nome do cliente:</label><input type="text" value="<?php echo $reserva['reserva_cliente']; ?>" name="cliente_nome"></input><br><br>
         <label>Suite:</label><input type="text" name="suite" value="<?php echo $reserva['reserva_tipo_quarto']; ?>"></input><br><br>
         <label>Adultos:</label><input type="text" name="adultos" value="<?php echo $reserva['adultos']; ?>"></input><br><br>
